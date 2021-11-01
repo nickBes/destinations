@@ -4,7 +4,7 @@ which are stored in [Israeli's Gov database](https://data.gov.il/dataset/1004/re
 
 # content
 ## /
-Includes a searchbar and result preview.
+Includes a searchbar (free search or specific search) and result preview.
 ## /info
 Includes information about the site in an article form.
 
