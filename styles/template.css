@@ -1,0 +1,9 @@
+body {
+    margin: 0%;
+}
+
+#hdr {
+    text-align: center;
+    line-height: 10px;
+    padding: 10px;
+}

@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Destinations</title>
-</head>
-<body>
-    
-</body>
-    <!-- 
-        Loads the file asynchronously and executes it immediately,
-        as we need to collect the destination data as fast as possible.
+<html lang="he">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/template.css">
+        <title>Destinations</title>
+    </head>
+    <body>
+        <div id="root"></div>
+            <!-- 
+                Loads asynchronously the template script and executes it immediatly.
 
-        The script is also below the body because it has to manipulate the DOM.
-    -->
-    <script async src="scripts/interface.js"></script>
+                All of the scripts are at the end of the body because they all manipulate the DOM.
+
+                Keep in mind that by downloading the repo you need to run a server, as browsers
+                disallow transfer of modules through the file:// protocol
+            -->
+        <script async type="module" src="scripts/template.js"></script>
+        <script defer type="module" src="scripts/index.js"></script>
+    </body>
 </html>
