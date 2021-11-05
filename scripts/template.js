@@ -1,24 +1,23 @@
+import { Component } from "./components.js"
+
 const DEFAULT_NAME = "יעדים"
 
-// saves the root element to a variable
-// and removes it
-let root = document.getElementById("root")
-root?.remove()
+let root = new Component("#root")
+root.delete()
 
-let header = document.createElement("header")
-header.innerText = DEFAULT_NAME
+let header = new Component("header")
+header.text = DEFAULT_NAME
+header.addAttributes(
+    {
+        id: "hdr"
+    }
+)
+header.render()
 
-let footer = document.createElement("footer")
-let a = document.createElement("a")
-a.innerText = "information"
-a.setAttribute("href", "./info.html")
-footer.innerText = DEFAULT_NAME
+let footer = new Component("footer")
+let footer_p = new Component("p")
+footer_p.text = "what's up guys it's me jermey"
+footer.appendChild(footer_p)
 
-// places all of the elements in the
-// right order 
-document.body.appendChild(header)
-
-// don't do anything if root doesn't exists
-root ? document.body.appendChild(root) : ""
-document.body.appendChild(footer)
-footer.appendChild(a)
+root.render()
+footer.render()

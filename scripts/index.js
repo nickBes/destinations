@@ -1,3 +1,5 @@
+import { Component } from "./components.js"
+
 async function getDestinationData () {
     const url = "https://data.gov.il/api/3/action/datastore_search"
     const resource_id = "29f4ec99-ec7f-43c1-947e-60a960980607"
