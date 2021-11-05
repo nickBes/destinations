@@ -15,6 +15,7 @@ function getComponent(value) {
 class Component {
     constructor (name) {
         this.htmlElement = createHtmlElement(name)
+        this.children = []
     }
     set text (str) {
         if (typeof str == "string" && this.htmlElement) {
@@ -26,12 +27,7 @@ class Component {
     }
     appendChild (name) {
         // notice that children can be undefined
-        if (typeof name)
-        if (this.children) {
-            this.children.push(getComponent(name))
-        } else {
-            this.children = [getComponent(name)]
-        }
+        this.children.push(getComponent(name))
     }
     renderChildren () {
         if (this.children) {
@@ -43,6 +39,12 @@ class Component {
                     child.renderChildren()
                 }
             }
+        }
+    }
+    removeChildren () {
+        this.children = []
+        if (this.htmlElement) {
+            this.htmlElement.innerHTML = ''
         }
     }
     addAttributes (attrs) {
