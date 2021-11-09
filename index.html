@@ -9,11 +9,14 @@
     </head>
     <body>
         <div id="root">
-            <form>
-                <input id="searchbar" type="text"/>
-                <button type="button">Submit</button>
-                <ul id="suggestions"></ul>
+            <form id="form">
+                <select id="selection">
+                    <option value="default" selected>הכל</option>
+                </select>
+                <input id="searchbar" type="text" placeholder="חיפוש חופשי" autocomplete="off"/>
+                <button type="submit">חפש</button>
             </form>
+            <ul id="suggestions"></ul>
         </div>
             <!-- 
                 Loads asynchronously the template script and executes it immediatly.
