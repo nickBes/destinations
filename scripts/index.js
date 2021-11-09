@@ -50,41 +50,84 @@ async function calculateMatchingScore (baseString, searchString) {
     return mutualStringLengths.length == -mutualStringAmount ? 0 : mutualStringLengths.reduce((accumelated, currentValue) => accumelated + currentValue) - mutualStringAmount
 }
 
-async function filterSuggetions (event, records, dataKey) {
-    const text = event.target.value.toLowerCase()
+async function isValidRecord (record, filter) {
+    const record_type = record["Attraction_Type"]
+    const b = record_type == filter || record_type == "default"
+    console.log(record_type, filter == "default")
+    return b
+}
+
+async function filterSuggetions (event, records, types, dataKey) {
+    // prevents from running default method during this event
+    event.preventDefault()
+
+    const searchbar = new Component("#searchbar")
     const suggetions = new Component("#suggestions")
+    const selection = new Component("#selection")
     // if element doesn't exist stop
-    if (!suggetions.htmlElement) return
+    if (!suggetions.htmlElement || !searchbar.htmlElement || !searchbar.htmlElement) return
+    const text = searchbar.htmlElement.value?.toLowerCase()
+    const filter = selection.htmlElement.value
+    // if filter doesn't exist or if user modified the value from the selection, stop
+    if (!filter && (!types.has(filter) && filter != "default")) return
+
     suggetions.removeChildren()
   
-    // create a map between each record's matching score and their indexes,
-    // where the matching score is the sum of the shared strings lengths
-    let map = await Promise.all(records.map(async (record, index) => {
-        return {
-            matchingScore: await calculateMatchingScore(record[dataKey], text),
-            index: index
-        }
-    }))
-    map = map.filter(value => value.matchingScore != 0).sort((leftValue, rightValue) => {
-        // will switch places if rightValue is bigger the leftValue
-        return rightValue.matchingScore - leftValue.matchingScore
-    })
-    // limit to 5 results
-    map = map.slice(0, 5)
-    // create & render the suggestion list
-    map.forEach(value => {
-        let sug = new Component("li")
-        sug.text = records[value.index][dataKey]
-        suggetions.appendChild(sug)
-    })
-    suggetions.renderChildren()
+    if (text != "") {
+        // create a map between each record's matching score and their indexes,
+        // where the matching score is the sum of the shared strings lengths
+        let map = await Promise.all(records.map(async (record, index) => {
+            return {
+                matchingScore: await calculateMatchingScore(record[dataKey], text),
+                index: index
+            }
+        }))
+        // filters by the filter value from the selections and by the score
+        // also sorts the results
+        map = map.filter(async value => value.matchingScore > 0 && (await isValidRecord(records[value.index], filter)))
+                .sort((leftValue, rightValue) => {
+                    // will switch places if rightValue is bigger the leftValue
+                    return rightValue.matchingScore - leftValue.matchingScore
+                })
+
+        // create & render the suggestion list
+        map.forEach(value => {
+            let sug = new Component("li")
+            sug.text = records[value.index][dataKey]
+            suggetions.appendChild(sug)
+        })
+        suggetions.renderChildren()
+    } else {
+        records.forEach(async value => {
+            const valid = await isValidRecord(value, filter)
+            console.log(valid)
+            if (valid) {
+                let sug = new Component("li")
+                sug.text = value[dataKey]
+                suggetions.appendChild(sug)
+            }
+        })
+        suggetions.renderChildren()
+    }
 }
 
 async function start () {
-    const data = await getDestinationData()
-    if (data.records) {
-        const searchbar = new Component("#searchbar")
-        searchbar.htmlElement.oninput = (event) => filterSuggetions(event, data.records, "Name")
+    const { records } = await getDestinationData()
+    if (records) {
+        const types = new Set()
+        const selection = new Component("#selection")
+        for (const record of records) {
+            types.add(record["Attraction_Type"])
+        }
+        for (const type of types.values()) {
+            let option = new Component("option")
+            option.addAttributes({value: type})
+            option.text = type
+            selection.appendChild(option)
+        }
+        selection.renderChildren()
+        const form = new Component("#form")
+        form.htmlElement.onsubmit = (event) => filterSuggetions(event, records, types, "Name")
     }
 }
 
