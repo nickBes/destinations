@@ -14,7 +14,7 @@ async function getDestinationData () {
             }).catch(error => console.error(error))
 }
 
-// returns the shared string length between two strings and given indexes
+// returns the mutual string length between two strings and given indexes
 async function sharedStringLength (baseChars, searchChars, baseIndex, searchIndex) {
     let length = 0
     for (let i = baseIndex; i < baseChars.length || searchIndex < searchChars.length; i++) {
@@ -25,24 +25,29 @@ async function sharedStringLength (baseChars, searchChars, baseIndex, searchInde
     return length
 }
 
-// returns sum of the shared strings lengths
-async function sharedStringLengthSum (baseString, searchString) {
+// will return the sum of mutual strings lengths minus the amount of mutual strings strings.
+async function calculateMatchingScore (baseString, searchString) {
     if (typeof baseString != "string") return 0
     const baseChars = baseString.split("")
     const searchChars = searchString.split("")
-    let stringOccuranceLengths = []
-    // will get create an array of all possible matching strings lengths promises,
+    let mutualStringLengths = []
+
+    // there might be multiple non relevant mutual strings that are included
+    // in the lengths sum. so we count the amount of substrings to substract it later
+    let mutualStringAmount = 0
+    // will create an array of all possible occurances for the sharedStringPromises (based on the base and earch strings),
     // to get the values in parallel
     searchChars.forEach((searchChar, searchCharIndex) => {
         baseChars.forEach((baseChar, baseCharIndex) => {
             if (baseChar == searchChar) {
-                stringOccuranceLengths.push(sharedStringLength(baseChars, searchChars, baseCharIndex, searchCharIndex))
+                mutualStringLengths.push(sharedStringLength(baseChars, searchChars, baseCharIndex, searchCharIndex))
+                mutualStringAmount++
             }
         })
     })
-    stringOccuranceLengths = await Promise.all(stringOccuranceLengths)
+    mutualStringLengths = await Promise.all(mutualStringLengths)
     // sum the lengths if the array isn't empty
-    return stringOccuranceLengths.length == 0 ? 0 : stringOccuranceLengths.reduce((accumelated, currentValue) => accumelated + currentValue)
+    return mutualStringLengths.length == -mutualStringAmount ? 0 : mutualStringLengths.reduce((accumelated, currentValue) => accumelated + currentValue) - mutualStringAmount
 }
 
 async function filterSuggetions (event, records, dataKey) {
@@ -56,7 +61,7 @@ async function filterSuggetions (event, records, dataKey) {
     // where the matching score is the sum of the shared strings lengths
     let map = await Promise.all(records.map(async (record, index) => {
         return {
-            matchingScore: await sharedStringLengthSum(record[dataKey], text),
+            matchingScore: await calculateMatchingScore(record[dataKey], text),
             index: index
         }
     }))
