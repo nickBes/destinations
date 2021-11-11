@@ -3,6 +3,11 @@
     direction: rtl;
 }
 
+a {
+    direction: ltr;
+    text-align: center;
+}
+
 body {
     margin: 0%;
 }
