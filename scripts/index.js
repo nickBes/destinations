@@ -104,7 +104,10 @@ async function filterSuggetions (event, records, types, dataKey) {
 }
 
 async function start () {
+    const loader = new Component("#loader")
+    loader.text = "Loading"
     const { records } = await getDestinationData()
+    loader.delete()
     if (records) {
         const types = new Set()
         const selection = new Component("#selection")
