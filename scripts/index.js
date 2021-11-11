@@ -106,9 +106,10 @@ async function filterSuggetions (event, records, types, dataKey) {
 async function start () {
     const loader = new Component("#loader")
     loader.text = "Loading"
-    const { records } = await getDestinationData()
+    const result = await getDestinationData()
     loader.delete()
-    if (records) {
+    if (result) {
+        const records = result.records
         const types = new Set()
         const selection = new Component("#selection")
         for (const record of records) {
@@ -123,6 +124,11 @@ async function start () {
         selection.renderChildren()
         const form = new Component("#form")
         form.htmlElement.onsubmit = (event) => filterSuggetions(event, records, types, "Name")
+    } else {
+        const root = new Component("#root")
+        root.delete()
+        const error = new Component("#error")
+        error.text = "Error"
     }
 }
 
