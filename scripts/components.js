@@ -19,25 +19,24 @@ class Component {
     }
     set text (str) {
         if (typeof str == "string" && this.htmlElement) {
-            this.htmlElement.innerText = str
+            this.htmlElement.innerHTML = str
         }
     }
     get text () {
-        return this.htmlElement?.innerText
+        return this.htmlElement?.innerHTML
     }
     appendChild (name) {
         // notice that children can be undefined
         this.children.push(getComponent(name))
     }
     renderChildren () {
-        if (this.children) {
-            for (const child of this.children) {
-                // child element might be undefined
-                if (child.htmlElement) {
-                    this.htmlElement.appendChild(child.htmlElement)
-                    // will stop when there are no children
-                    child.renderChildren()
-                }
+        for (const child of this.children ?? []) {
+            // child element might be undefined
+            if (child.htmlElement) {
+                console.log(child.children)
+                this.htmlElement.appendChild(child.htmlElement)
+                // will stop when there are no children
+                child.renderChildren()
             }
         }
     }

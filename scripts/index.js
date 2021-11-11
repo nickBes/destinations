@@ -1,5 +1,14 @@
 import { Component } from "./components.js"
 
+const dataMap = {
+    "Name": "שם",
+    "Address": "מקום",
+    // "Phone":"טלפון",
+    // "Email":"מייל",
+    "Product_Url":"אתר",
+    "Opening_Hours":"שעות פתיחה"
+}
+
 async function getDestinationData () {
     const url = "https://data.gov.il/api/3/action/datastore_search"
     const resource_id = "29f4ec99-ec7f-43c1-947e-60a960980607"
@@ -88,19 +97,41 @@ async function filterSuggetions (event, records, types, dataKey) {
         
         // create & render the suggestion list
         map.forEach(value => {
-            let sug = new Component("li")
-            console.log(filtered[value.index], value.matchingScore)
-            sug.text = filtered[value.index][dataKey]
+            let objectData = filterRecordDataFromMap(filtered[value.index], dataMap)     
+            let sug = createSuggestionComponent(objectData)
             suggetions.appendChild(sug)
         })
     } else {
-        filtered.forEach(value => {
-                let sug = new Component("li")
-                sug.text = value[dataKey]
-                suggetions.appendChild(sug)
+        await filtered.forEach(value => {
+            let objectData = filterRecordDataFromMap(value, dataMap)     
+            let sug = createSuggestionComponent(objectData)
+            suggetions.appendChild(sug)
         })
     }
     suggetions.renderChildren()
+}
+
+function filterRecordDataFromMap(record, map) {
+    let n = {}
+    for (const key in record) {
+        if (key in map) {
+            n[map[key]] = record[key]
+        }
+    }
+    return n
+}
+
+function createSuggestionComponent(dataObject) {
+    let sug = new Component("li")
+    let data = new Component("ul")
+
+    for (const key in dataObject) {
+        let d = new Component("li")
+        d.text = `${key}: ${dataObject[key]}`
+        data.appendChild(d)
+    }
+    sug.appendChild(data)
+    return sug
 }
 
 async function start () {
