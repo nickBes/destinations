@@ -33,7 +33,6 @@ class Component {
         for (const child of this.children ?? []) {
             // child element might be undefined
             if (child.htmlElement) {
-                console.log(child.children)
                 this.htmlElement.appendChild(child.htmlElement)
                 // will stop when there are no children
                 child.renderChildren()
