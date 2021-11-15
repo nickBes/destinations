@@ -153,7 +153,7 @@ async function start () {
             selection.appendChild(option)
         }
         selection.renderChildren()
-        const form = new Component("#form")
+        const form = new Component("#frm")
         form.htmlElement.onsubmit = (event) => filterSuggetions(event, records, types, "Name")
     } else {
         const root = new Component("#root")

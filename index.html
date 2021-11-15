@@ -4,18 +4,24 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="styles/template.css">
+        <link rel="stylesheet" href="styles/index.css">
         <title>יעדים | מציאת מקומות תיירות בישראל</title>
     </head>
     <body>
         <div id="loader"></div>
         <div id="error"></div>
         <div id="root">
-            <form id="form">
-                <select id="selection">
-                    <option value="default" selected>הכל</option>
-                </select>
-                <input id="searchbar" type="text" placeholder="חיפוש חופשי" autocomplete="off"/>
+            <form id="frm">
+                <div class="inpt">
+                    <label for="selection">סוג מקום:</label>
+                    <select id="selection" class="inpt-box">
+                        <option value="default" selected>הכל</option>
+                    </select>
+                </div>
+                <div class="inpt">
+                    <label for="searchbar">חיפוש חופשי:</label>
+                    <input class="inpt-box" id="searchbar" type="text" placeholder="ריק" autocomplete="off"/>
+                </div>
                 <button type="submit">חפש</button>
             </form>
             <ul id="suggestions"></ul>
