@@ -35,7 +35,7 @@ function createFooter() {
     github.addAttributes({href: "https://github.com/nickBes/destinations"})
 
     let githubImage = new Component("img")
-    githubImage.addAttributes({src: "../media/GitHub_Logo.png", width: "100px", height: "41px"})
+    githubImage.addAttributes({src: "./media/GitHub_Logo.png", width: "100px", height: "41px"})
     github.appendChild(githubImage)
 
     let credit = new Component("p")

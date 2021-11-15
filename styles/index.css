@@ -6,6 +6,12 @@
     --box-padding: 1vmin;
 }
 
+#ttl {
+    font-size: 320%;
+    text-align: center;
+    color: var(--title-color);
+}
+
 .inpt {
     display: flex;
     align-items: flex-start;
