@@ -86,6 +86,7 @@ async function filterSuggetions (event, records, types, dataKey) {
                 index: index
             }
         }))
+        map.forEach(val => console.log(records[val.index], val.matchingScore))
         // filters by the filter value from the selections and by the score
         // also sorts the results
         map = map.filter(async value => value.matchingScore > 0)
