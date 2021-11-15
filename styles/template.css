@@ -2,7 +2,7 @@
 
 :root {
     --title-color: #151013;
-    --subtitle-color: #1a1a1a;
+    --subtitle-color: #333;
 }
 
 * {
@@ -44,6 +44,8 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    bottom: 0%;
 }
 
 #ftr p {
@@ -74,7 +76,7 @@ a {
     transform: scale(1.1);
 }
 
-@media (max-aspect-ratio: 1) {
+@media (max-aspect-ratio: 1/1) {
     #hdr {
         align-items: center;
         justify-content: center;
