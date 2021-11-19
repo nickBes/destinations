@@ -58,3 +58,14 @@ root.delete()
 header.render()
 root.render()
 footer.render()
+
+
+// android keyboard resizes the screen
+// so to fix that we set the height to the initial height
+// when the screen is resized
+const initialHeight = window.innerHeight
+const viewport = document.querySelector('meta[name=viewport]')
+window.onresize = () => {
+    console.log('resize')
+    viewport.setAttribute('content', `height=${initialHeight}, width=device-width, initial-scale=1.0`)
+}
