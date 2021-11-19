@@ -66,6 +66,5 @@ footer.render()
 const initialHeight = window.innerHeight
 const viewport = document.querySelector('meta[name=viewport]')
 window.onresize = () => {
-    console.log('resize')
     viewport.setAttribute('content', `height=${initialHeight}, width=device-width, initial-scale=1.0`)
 }
