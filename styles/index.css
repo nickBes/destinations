@@ -145,6 +145,12 @@ select {
     color: var(--subtitle-color);
 }
 
+#err {
+    text-align: center;
+    color: var(--subtitle-color);
+
+}
+
 @media (max-aspect-ratio: 1/1) {
     .card-ratio {
         aspect-ratio: 4/3;

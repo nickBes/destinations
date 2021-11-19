@@ -194,33 +194,46 @@ function createSuggestionComponent(dataObject) {
     return sug
 }
 
+async function getTypesFromRecords (records) {
+    const types = new Set()
+    const selection = new Component("#selection")
+    for (const record of records) {
+        types.add(record[filterKey])
+    }
+    for (const type of types.values()) {
+        let option = new Component("option")
+        option.addAttributes({value: type})
+        option.text = type
+        selection.appendChild(option)
+    }
+    selection.renderChildren()
+    return types
+}
+
 async function start () {
     const loader = new Component("div")
     loader.addAttributes({id:"loader"})
     loader.render()
+
     const result = await getDestinationData()
     if (result) {
         const records = result.records
-        const types = new Set()
-        const selection = new Component("#selection")
-        for (const record of records) {
-            types.add(record[filterKey])
-        }
-        for (const type of types.values()) {
-            let option = new Component("option")
-            option.addAttributes({value: type})
-            option.text = type
-            selection.appendChild(option)
-        }
-        selection.renderChildren()
+        const types = await getTypesFromRecords(records)
+
         loader.delete()
         const form = new Component("#frm")
         form.htmlElement.onsubmit = (event) => filterSuggetions(event, records, types)
     } else {
         const root = new Component("#root")
-        root.delete()
-        const error = new Component("#error")
-        error.text = "Error"
+        root.removeChildren()
+        
+        const error = new Component("div")
+        error.addAttributes({id:"err"})
+        error.text = "משהו לא צלח כאן :("
+
+        root.appendChild(error)
+        root.renderChildren()
+        loader.delete()
     }
 }
 
