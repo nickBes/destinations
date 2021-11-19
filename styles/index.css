@@ -2,14 +2,75 @@
 
 :root {
     --box-height: 2vmax;
-    --box-height-mobile: 4vmax;
+    --box-height-mobile: 6vmax;
     --box-padding: 1vmin;
+
+    /* header colors */
+    --a: cadetblue;
+    --b: goldenrod;
+    --c: rgb(179, 92, 205);
+}
+
+#suggestions {
+    list-style: none;
+    padding: 0%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 2vmax;
+    width: 100%;
+    min-height: 50vh;
+}
+
+.card {
+    width: 20vmax;
+    overflow: hidden;
+    background-color: white;
+    flex-grow: 0;
+    position: relative;
+}
+.card > * {
+    padding: var(--box-padding);
+    margin: 0%;
+}
+
+.card-ratio {
+    aspect-ratio: 7/6;
+}
+
+.card-auto {
+    aspect-ratio: auto;
+}
+
+.card-header {
+    box-sizing: border-box;
+    color: white;
+}
+
+.card-url {
+    color: cornflowerblue;
+    text-decoration: underline cornflowerblue;
+}
+
+.card-more::after {
+    content: "קרא עוד";
+    position: absolute;
+    transform: translate(-50%, 0%);
+    bottom: 0%;
+    left: 50%;
+    z-index: 1;
+    background-color: lightgrey;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
 }
 
 #ttl {
-    font-size: 320%;
+    font-size: 7vmin;
     text-align: center;
     color: var(--title-color);
+    margin-top: 0%;
 }
 
 .inpt {
@@ -26,7 +87,6 @@
 .inpt-box {
     box-sizing: border-box;
     height: var(--box-height);
-    aspect-ratio: 10/1;
     text-align: center;
     border: none;
     padding: var(--box-padding);
@@ -56,7 +116,22 @@ select {
     margin-top: 1vmin;
 }
 
+#no-rslt {
+    color: var(--subtitle-color);
+}
+
 @media (max-aspect-ratio: 1/1) {
+    .card-ratio {
+        aspect-ratio: 4/3;
+    }
+
+    .card {
+        width: 70vmin;
+    }
+
+    #ttl {
+        font-size: 9vmin;
+    }
     #frm {
         flex-direction: column;
         align-items: center;
@@ -70,7 +145,14 @@ select {
         margin: 1vmin;
     }
 
+    #suggestions {
+        flex-direction: column;
+        align-items: center;
+        min-height: 35vh;
+    }
+
     .inpt-box {
         height: var(--box-height-mobile);
+        aspect-ratio: 8/1;
     }
 }
