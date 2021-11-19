@@ -195,10 +195,10 @@ function createSuggestionComponent(dataObject) {
 }
 
 async function start () {
-    const loader = new Component("#loader")
-    loader.text = "Loading"
+    const loader = new Component("div")
+    loader.addAttributes({id:"loader"})
+    loader.render()
     const result = await getDestinationData()
-    loader.delete()
     if (result) {
         const records = result.records
         const types = new Set()
@@ -213,6 +213,7 @@ async function start () {
             selection.appendChild(option)
         }
         selection.renderChildren()
+        loader.delete()
         const form = new Component("#frm")
         form.htmlElement.onsubmit = (event) => filterSuggetions(event, records, types)
     } else {
