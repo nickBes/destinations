@@ -11,6 +11,32 @@
     --c: rgb(179, 92, 205);
 }
 
+#loader {
+    content: "";
+    width: 20vmin;
+    height: 20vmin;
+    border-radius: 50%;
+    z-index: 1;
+    border: 2vmin solid cornflowerblue;
+    border-top: 2vmin solid rgba(1, 1, 1, 0);
+    border-right: 2vmin solid rgba(1, 1, 1, 0);
+
+    animation: spin 1s ease-in-out infinite;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    position: absolute;
+}
+
+@keyframes spin {
+    0% {transform: translate(-50%, -50%) rotate(0deg);}
+    100% {transform: translate(-50%, -50%) rotate(360deg);}
+}
+
+#root {
+    min-height: 90vh;
+}
+
 #suggestions {
     list-style: none;
     padding: 0%;
@@ -20,7 +46,6 @@
     align-items: flex-start;
     gap: 2vmax;
     width: 100%;
-    min-height: 50vh;
 }
 
 .card {
