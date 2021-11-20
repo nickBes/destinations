@@ -7,8 +7,8 @@
 
     /* header colors */
     --a: cadetblue;
-    --b: goldenrod;
-    --c: rgb(179, 92, 205);
+    --b: royalblue;
+    --c: indianred;
 }
 
 #loader {
@@ -39,11 +39,14 @@
 
 #suggestions {
     list-style: none;
+    margin: 0%;
     padding: 0%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
     align-items: flex-start;
+    margin-top: 2vmax;
+    margin-bottom: 2vmax;
     gap: 2vmax;
     width: 100%;
 }
@@ -54,6 +57,7 @@
     background-color: white;
     flex-grow: 0;
     position: relative;
+    min-width: 25%;
 }
 .card > * {
     padding: var(--box-padding);
@@ -61,7 +65,7 @@
 }
 
 .card-ratio {
-    aspect-ratio: 7/6;
+    aspect-ratio: 4/3;
 }
 
 .card-auto {
@@ -85,7 +89,7 @@
     bottom: 0%;
     left: 50%;
     z-index: 1;
-    background-color: lightgrey;
+    background-color: #e9e9ed;
     width: 100%;
     cursor: pointer;
     text-align: center;
@@ -111,15 +115,12 @@
 .inpt-box {
     box-sizing: border-box;
     height: var(--box-height);
+    line-height: var(--box-height);
     text-align: center;
     border: none;
     padding: var(--box-padding);
     aspect-ratio: 10/1;
-    font-size: clamp(0.25rem, 2vmin, 1rem);
-}
-
-select {
-    background-color: darkseagreen;
+    font-size: clamp(1rem, 2vmin, 1rem);
 }
 
 *:focus {
@@ -129,9 +130,9 @@ select {
 #frm {
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items:flex-end;
     text-align: center;
-    font-size: clamp(0.5rem, 3vmin, 1.5rem);
+    font-size: clamp(1rem, 3vmin, 1.5rem);
 }
 
 #frm button {
@@ -141,12 +142,14 @@ select {
     border: none;
     padding: var(--box-padding);
     margin-top: 1vmin;
-    font-size: clamp(0.25rem, 2vmin, 1rem);
+    font-size: clamp(1rem, 2vmin, 1rem);
+    background-color: orange;
 }
 
 #no-rslt {
     color: var(--subtitle-color);
-    font-size: clamp(0.5rem, 3vmin, 1.5rem);
+    font-size: clamp(1.5rem, 4vmin, 2rem);
+    text-align: center;
 }
 
 #err {
@@ -188,11 +191,12 @@ select {
 
     .inpt {
         align-items: center;
+        max-width: 90%;
     }
 
     .inpt-box {
         height: var(--box-height-mobile);
-        aspect-ratio: 8/1;
-        max-width: 70%;
+        line-height: var(--box-height-mobile);
+        width: 100%;
     }
 }
