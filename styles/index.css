@@ -1,8 +1,8 @@
 @import "./template.css";
 
 :root {
-    --box-height: 2vmax;
-    --box-height-mobile: 6vmax;
+    --box-height: 3vw;
+    --box-height-mobile: 6vh;
     --box-padding: 1vmin;
 
     /* header colors */
@@ -92,7 +92,7 @@
 }
 
 #ttl {
-    font-size: 7vmin;
+    font-size: clamp(1.25rem, 16vmin, 4rem);
     text-align: center;
     color: var(--title-color);
     margin-top: 0%;
@@ -101,7 +101,6 @@
 .inpt {
     display: flex;
     align-items: flex-start;
-    justify-content: center;
     flex-direction: column;
 }
 
@@ -115,6 +114,8 @@
     text-align: center;
     border: none;
     padding: var(--box-padding);
+    aspect-ratio: 10/1;
+    font-size: clamp(0.25rem, 2vmin, 1rem);
 }
 
 select {
@@ -127,9 +128,10 @@ select {
 
 #frm {
     display: flex;
-    align-items: flex-end;
     justify-content: center;
+    align-items: flex-end;
     text-align: center;
+    font-size: clamp(0.5rem, 3vmin, 1.5rem);
 }
 
 #frm button {
@@ -139,10 +141,12 @@ select {
     border: none;
     padding: var(--box-padding);
     margin-top: 1vmin;
+    font-size: clamp(0.25rem, 2vmin, 1rem);
 }
 
 #no-rslt {
     color: var(--subtitle-color);
+    font-size: clamp(0.5rem, 3vmin, 1.5rem);
 }
 
 #err {
@@ -182,8 +186,13 @@ select {
         min-height: 35vh;
     }
 
+    .inpt {
+        align-items: center;
+    }
+
     .inpt-box {
         height: var(--box-height-mobile);
         aspect-ratio: 8/1;
+        max-width: 70%;
     }
 }
