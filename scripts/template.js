@@ -35,11 +35,11 @@ function createFooter() {
     github.addAttributes({href: "https://github.com/nickBes/destinations"})
 
     let githubImage = new Component("img")
-    githubImage.addAttributes({src: "./media/GitHub_Logo.png", width: "100px", height: "41px"})
+    githubImage.addAttributes({src: "./media/GitHub_Logo.png", width: "100px", height: "41px", alt:"עמוד Github"})
     github.appendChild(githubImage)
 
     let credit = new Component("p")
-    credit.text = "ניק בספלי"
+    credit.text = "יוצר - ניק בספלי"
 
     links.appendChild(github)
     links.appendChild(info)

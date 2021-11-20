@@ -1,0 +1,53 @@
+@import "./template.css";
+
+article h1 {
+    color: var(--title-color);
+    font-size: clamp(1rem, 7vmin, 3rem);
+    margin: 0%;
+}
+
+article p {
+    color: var(--subtitle-color);
+    font-size: clamp(0.75rem, 5vmin, 2rem);
+}
+
+p a {
+    display: inline;
+}
+
+article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+article > * {
+    padding: 5vmin;
+}
+
+article a {
+    color: cornflowerblue;
+    text-decoration: underline cornflowerblue;
+}
+
+#support {
+    display: flex;
+    flex-direction: column;
+}
+
+#support img {
+    width: 100%;
+    max-width: 401px;
+    height: auto;
+    aspect-ratio: 401/362;
+    align-self: center;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    #support {
+        flex-direction: column;
+    }
+}

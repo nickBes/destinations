@@ -119,7 +119,7 @@ async function filterSuggetions (event, records, types) {
     // the situation where there are no results
     let thereAreResults = true
     if (suggetions.children.length == 0) {
-        let noResult = new Component("h1")
+        let noResult = new Component("li")
         noResult.addAttributes({id: "no-rslt"})
         noResult.text = "אין תוצאות רלוונטיות"
         suggetions.appendChild(noResult)
