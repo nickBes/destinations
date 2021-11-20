@@ -15,6 +15,10 @@ p a {
     display: inline;
 }
 
+article section {
+    max-width: 70%;
+}
+
 article {
     display: flex;
     flex-direction: column;

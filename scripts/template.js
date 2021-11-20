@@ -2,17 +2,22 @@ import { Component } from "./components.js"
 
 function createHeader () {
     let header = new Component("header")
-    let title = new Component("h1")
-    title.htmlElement.classList.add("title")
 
     let link = new Component("a")
-    link.text = "יעדים"
     link.addAttributes({href: "./"})
 
-    title.appendChild(link)
-    header.appendChild(title)
+    let image = new Component("img")
+    image.addAttributes({src: "./favicon.ico", alt: "מצפן - לוגו יעדים"})
 
-    header.addAttributes({id: "hdr"})
+    let title = new Component("h1")
+    title.htmlElement.classList.add("title")
+    title.text = "יעדים"
+
+    link.appendChild(title)
+    link.appendChild(image)
+    link.addAttributes({id: "hdr"})
+
+    header.appendChild(link)
     return header
 }
 
