@@ -2,7 +2,7 @@
 
 article h1 {
     color: var(--title-color);
-    font-size: clamp(1rem, 7vmin, 3rem);
+    font-size: clamp(1rem, 7vmin, 2.75rem);
     margin: 0%;
 }
 
