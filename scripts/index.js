@@ -133,6 +133,8 @@ async function filterSuggetions (event, records, types) {
             createExpandMethod(child.htmlElement)
         })
     }
+
+    searchbar.htmlElement.blur()
 }
 
 function createExpandMethod(element) {
