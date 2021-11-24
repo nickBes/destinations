@@ -30,7 +30,7 @@ header {
     align-items: center;
     justify-content: center;
     padding-top: clamp(1rem, 3vmin, 3rem);
-    gap: 1vmin;
+    gap: 3vmin;
     width: fit-content;
 }
 #hdr img{

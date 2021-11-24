@@ -1,6 +1,6 @@
 import { Component } from "./components.js"
 
-const dataMap = {
+const dataMapTemplate = {
     "Name": "שם",
     "Address": "מקום",
     // "Phone":"טלפון",
@@ -15,6 +15,7 @@ const urlKey = "URL"
 
 // creates an array of css bg-color attribute that is mapped to the variables
 // that exist in index.css
+
 const headerColors = "abc".split("").map(value => `background-color: var(--${value})`)
 
 async function getDestinationData () {
@@ -43,6 +44,7 @@ async function sharedStringLength (baseChars, searchChars, baseIndex, searchInde
 }
 
 // will return the sum of mutual strings lengths minus the amount of mutual strings strings.
+
 async function calculateMatchingScore (baseString, searchString) {
     if (typeof baseString != "string") return 0
     const baseChars = baseString.split("")
@@ -75,10 +77,13 @@ async function filterSuggetions (event, records, types) {
     const searchbar = new Component("#searchbar")
     const suggetions = new Component("#suggestions")
     const selection = new Component("#selection")
+
     // if element doesn't exist stop
     if (!suggetions.htmlElement || !searchbar.htmlElement || !searchbar.htmlElement) return
+
     const text = searchbar.htmlElement.value?.toLowerCase()
     const filter = selection.htmlElement.value
+
     // if filter doesn't exist or if user modified the value from the selection, stop
     if (!filter || (!types.has(filter) && filter != "default")) return
 
@@ -105,13 +110,13 @@ async function filterSuggetions (event, records, types) {
         
         // create & render the suggestion list
         map.forEach(value => {
-            let objectData = filterRecordDataFromMap(filtered[value.index], dataMap)     
+            let objectData = createRecordDataMap(filtered[value.index], dataMapTemplate)     
             let sug = createSuggestionComponent(objectData)
             suggetions.appendChild(sug)
         })
     } else {
         filtered.forEach(value => {
-            let objectData = filterRecordDataFromMap(value)     
+            let objectData = createRecordDataMap(value)     
             let sug = createSuggestionComponent(objectData)
             suggetions.appendChild(sug)
         })
@@ -134,6 +139,8 @@ async function filterSuggetions (event, records, types) {
         })
     }
 
+
+    // will close an open keyboard on phone device when the form is submitted
     searchbar.htmlElement.blur()
 }
 
@@ -147,13 +154,18 @@ function createExpandMethod(element) {
         element.classList.add("card-more")
         element.setAttribute("title", "קרא עוד")
     }
-}
+}   
 
-function filterRecordDataFromMap(record) {
+// will return an object that has the values inside the 
+// dataMapTemplate as keys and the values inside the recieved record
+// of the according key. so later we'll be able to format this data in html
+
+function createRecordDataMap(record) {
+
     let n = {}
     for (const key in record) {
-        if (key in dataMap) {
-            n[dataMap[key]] = record[key]
+        if (key in dataMapTemplate) {
+            n[dataMapTemplate[key]] = record[key]
         }
     }
     return n
@@ -163,8 +175,8 @@ function createSuggestionComponent(dataObject) {
     let sug = new Component("li")
     sug.htmlElement.classList.add("card", "card-ratio")
 
-    let mappedHeaderKey = dataMap[headerKey]
-    let mappedUrlKey = dataMap[urlKey]
+    let mappedHeaderKey = dataMapTemplate[headerKey]
+    let mappedUrlKey = dataMapTemplate[urlKey]
 
     // creates a heading for the card
     if (mappedHeaderKey && mappedHeaderKey in dataObject) {
@@ -196,6 +208,10 @@ function createSuggestionComponent(dataObject) {
     return sug
 }
 
+
+// will collect all of the unique types that exist in the record
+// and add them to the selection element, after that it returns it for later use
+
 async function getTypesFromRecords (records) {
     const types = new Set()
     const selection = new Component("#selection")
@@ -212,13 +228,20 @@ async function getTypesFromRecords (records) {
     return types
 }
 
+// applies all of the created methods as you can't use 
+// async methods outside of a function in js
+
 async function start () {
+    // display loading until we recieve some response
     const loader = new Component("div")
     loader.addAttributes({id:"loader"})
     loader.render()
 
     const result = await getDestinationData()
-    if (result) {
+
+    // if the result was loaded properly continue
+    // else create an error screen
+    if (result.records) {
         const records = result.records
         const types = await getTypesFromRecords(records)
 
