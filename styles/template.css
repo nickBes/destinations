@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --title-color: #151013;
+    --subtitle-color: #333;
+}
+
+* {
+    font-family: 'Assistant', sans-serif;
+
+    /* Text is in hebrew, so i'd be logical to make the direction right to left */
+    direction: rtl;
+}
+
+body {
+    background-color: floralwhite;
+    margin: 0%;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#hdr {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-top: clamp(1rem, 3vmin, 3rem);
+    gap: 3vmin;
+    width: fit-content;
+}
+#hdr img{
+    height: clamp(2rem, 20vmin, 3rem);
+}
+
+.title {
+    margin: 0%;
+    color: var(--title-color);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 9vmin, 3rem);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    display: inherit;
+    margin: 0%;
+}
+
+#ftr {
+    width: 100%;
+    height: clamp(125px, 16vh, 200px);
+    background-color: #e9e9ed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#ftr p {
+    margin: 0%;
+    color: var(--subtitle-color);
+}
+
+#lnks {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    bottom: 0%;
+}
+
+#lnks .title {
+    padding: 0%;
+}
+
+#lnks img {
+    max-height: clamp(1.5rem, 9vmin, 3rem);
+}
+
+#lnks > * {
+    transition: .3s ease-in;
+}
+
+#lnks > *:hover {
+    transition: .3s ease-in;
+    transform: scale(1.1);
+}
+
+@media (max-aspect-ratio: 1/1) {
+    #hdr .title {
+        display: none;
+    }
+}

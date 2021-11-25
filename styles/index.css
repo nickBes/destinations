@@ -1,0 +1,199 @@
+@import "./template.css";
+
+:root {
+    --box-height: 3vmax;
+    --box-padding: 1vmin;
+
+    /* header colors */
+    --a: cadetblue;
+    --b: royalblue;
+    --c: indianred;
+}
+
+#loader {
+    content: "";
+    width: 20vmin;
+    height: 20vmin;
+    border-radius: 50%;
+    z-index: 1;
+    border: 2vmin solid cornflowerblue;
+    border-top: 2vmin solid rgba(1, 1, 1, 0);
+    border-right: 2vmin solid rgba(1, 1, 1, 0);
+
+    animation: spin 1s ease-in-out infinite;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    position: absolute;
+}
+
+@keyframes spin {
+    0% {transform: translate(-50%, -50%) rotate(0deg);}
+    100% {transform: translate(-50%, -50%) rotate(360deg);}
+}
+
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+#suggestions {
+    list-style: none;
+    margin: 0%;
+    padding: 0%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 2vmax;
+    margin-bottom: 2vmax;
+    gap: 2vmax;
+    width: 100%;
+}
+
+.card {
+    width: 20vmax;
+    overflow: hidden;
+    background-color: white;
+    flex-grow: 0;
+    position: relative;
+    min-width: 25%;
+}
+.card > * {
+    padding: var(--box-padding);
+    margin: 0%;
+}
+
+.card-ratio {
+    aspect-ratio: 4/3;
+}
+
+.card-auto {
+    aspect-ratio: auto;
+}
+
+.card-header {
+    box-sizing: border-box;
+    color: white;
+}
+
+.card-url {
+    color: cornflowerblue;
+    text-decoration: underline cornflowerblue;
+}
+
+.card-more::after {
+    content: "קרא עוד";
+    position: absolute;
+    transform: translate(-50%, 0%);
+    bottom: 0%;
+    left: 50%;
+    z-index: 1;
+    background-color: #e9e9ed;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+}
+
+#ttl {
+    font-size: clamp(1.25rem, 16vmin, 4rem);
+    text-align: center;
+    color: var(--title-color);
+    margin-top: 0%;
+}
+
+#frm {
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    max-width: 1000px;
+}
+
+.inpt > label {
+    color: var(--subtitle-color);
+    font-size: clamp(1rem, 3vmin, 1.5rem);
+}
+
+.inpt {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}
+
+.inpt-box {
+    box-sizing: border-box;
+    min-height: 30px;
+    text-align: center;
+    border: none;
+    height: var(--box-height);
+    font-size: clamp(1rem, 2vmin, 1rem);
+}
+
+#frm button {
+    height: var(--box-height);
+    border: none;
+    min-height: 30px;
+    aspect-ratio: 2/1;
+    align-self: flex-end;
+    cursor: pointer;
+    background-color: orange;
+    font-size: clamp(1rem, 2vmin, 1rem);
+}
+
+*:focus {
+    outline: none;
+}
+
+#no-rslt {
+    color: var(--subtitle-color);
+    font-size: clamp(1rem, 4vmin, 2rem);
+    text-align: center;
+}
+
+#err {
+    text-align: center;
+    color: var(--subtitle-color);
+}
+
+@media (max-aspect-ratio: 1/1) {
+    #frm {
+        flex-direction: column;
+        gap: 3vmin;
+    }
+
+    #frm button {
+        align-self: center;
+        width: clamp(70px, 5vmin, 100px);
+        min-height: 45px;
+    }
+
+    .inpt {
+        width: 100%;
+    }
+
+    .inpt-box {
+        min-height: 45px;
+    }
+
+    .card-ratio {
+        aspect-ratio: 4/3;
+    }
+
+    .card {
+        width: 70vmin;
+    }
+
+    #ttl {
+        font-size: 9vmin;
+    }
+
+    #suggestions {
+        flex-direction: column;
+        align-items: center;
+        min-height: 35vh;
+    }
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="he">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/index.css">
+        <title>יעדים | מציאת מקומות תיירות בישראל</title>
+    </head>
+    <body>
+        <div id="root">
+            <h1 id="ttl">מצאו מקומות תיירותיים<br>שעוד לא הכרתם בישראל</h1>
+            <form id="frm">
+                <div class="inpt">
+                    <label for="selection">סוג מקום:</label>
+                    <select id="selection" class="inpt-box">
+                        <option value="default" selected>הכל</option>
+                    </select>
+                </div>
+                <div class="inpt">
+                    <label for="searchbar">חיפוש חופשי:</label>
+                    <input class="inpt-box" id="searchbar" type="text" placeholder="ריק" autocomplete="off"/>
+                </div>
+                <button type="submit">חפש</button>
+            </form>
+            <ul id="suggestions">
+                <li id="no-rslt">סננו את התוצאות ולחצו חפש</li>
+            </ul>
+        </div>
+            <!-- 
+                Loads asynchronously the template script and executes it immediatly.
+
+                All of the scripts are at the end of the body because they all manipulate the DOM.
+
+                Keep in mind that by downloading the repo you need to run a server, as browsers
+                disallow transfer of modules through the file:// protocol
+            -->
+        <script async type="module" src="scripts/template.js"></script>
+        <script defer type="module" src="scripts/index.js"></script>
+    </body>
+</html>
