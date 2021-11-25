@@ -1,8 +1,7 @@
 @import "./template.css";
 
 :root {
-    --box-height: 3vw;
-    --box-height-mobile: 6vh;
+    --box-height: 3vmax;
     --box-padding: 1vmin;
 
     /* header colors */
@@ -34,7 +33,11 @@
 }
 
 #root {
-    min-height: 90vh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
 }
 
 #suggestions {
@@ -102,24 +105,42 @@
     margin-top: 0%;
 }
 
-.inpt {
+#frm {
+    justify-content: center;
     display: flex;
-    align-items: flex-start;
-    flex-direction: column;
+    flex-direction: row;
+    width: 70%;
+    max-width: 1000px;
 }
 
 .inpt > label {
     color: var(--subtitle-color);
+    font-size: clamp(1rem, 3vmin, 1.5rem);
+}
+
+.inpt {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
 }
 
 .inpt-box {
     box-sizing: border-box;
-    height: var(--box-height);
-    line-height: var(--box-height);
+    min-height: 30px;
     text-align: center;
     border: none;
-    padding: var(--box-padding);
-    aspect-ratio: 10/1;
+    height: var(--box-height);
+    font-size: clamp(1rem, 2vmin, 1rem);
+}
+
+#frm button {
+    height: var(--box-height);
+    border: none;
+    min-height: 30px;
+    aspect-ratio: 2/1;
+    align-self: flex-end;
+    cursor: pointer;
+    background-color: orange;
     font-size: clamp(1rem, 2vmin, 1rem);
 }
 
@@ -127,38 +148,37 @@
     outline: none;
 }
 
-#frm {
-    display: flex;
-    justify-content: center;
-    align-items:flex-end;
-    text-align: center;
-    font-size: clamp(1rem, 3vmin, 1.5rem);
-}
-
-#frm button {
-    height: var(--box-height);
-    border-radius: 0px;
-    aspect-ratio: 2/1;
-    border: none;
-    padding: var(--box-padding);
-    margin-top: 1vmin;
-    font-size: clamp(1rem, 2vmin, 1rem);
-    background-color: orange;
-}
-
 #no-rslt {
     color: var(--subtitle-color);
-    font-size: clamp(1.5rem, 4vmin, 2rem);
+    font-size: clamp(1rem, 4vmin, 2rem);
     text-align: center;
 }
 
 #err {
     text-align: center;
     color: var(--subtitle-color);
-
 }
 
 @media (max-aspect-ratio: 1/1) {
+    #frm {
+        flex-direction: column;
+        gap: 3vmin;
+    }
+
+    #frm button {
+        align-self: center;
+        width: clamp(70px, 5vmin, 100px);
+        min-height: 45px;
+    }
+
+    .inpt {
+        width: 100%;
+    }
+
+    .inpt-box {
+        min-height: 45px;
+    }
+
     .card-ratio {
         aspect-ratio: 4/3;
     }
@@ -170,33 +190,10 @@
     #ttl {
         font-size: 9vmin;
     }
-    #frm {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    #frm button {
-        height: var(--box-height-mobile);
-    }
-
-    #frm > * {
-        margin: 1vmin;
-    }
 
     #suggestions {
         flex-direction: column;
         align-items: center;
         min-height: 35vh;
-    }
-
-    .inpt {
-        align-items: center;
-        max-width: 90%;
-    }
-
-    .inpt-box {
-        height: var(--box-height-mobile);
-        line-height: var(--box-height-mobile);
-        width: 100%;
     }
 }
