@@ -113,6 +113,7 @@
     max-width: 1000px;
 }
 
+
 .inpt > label {
     color: var(--subtitle-color);
     font-size: clamp(1rem, 3vmin, 1.5rem);
@@ -128,20 +129,23 @@
     box-sizing: border-box;
     min-height: 30px;
     text-align: center;
-    border: none;
     height: var(--box-height);
     font-size: clamp(1rem, 2vmin, 1rem);
 }
 
 #frm button {
     height: var(--box-height);
-    border: none;
     min-height: 30px;
     aspect-ratio: 2/1;
     align-self: flex-end;
     cursor: pointer;
     background-color: orange;
     font-size: clamp(1rem, 2vmin, 1rem);
+}
+
+#frm button, .inpt-box, .card {
+    border: var(--default-border);
+    border-collapse: collapse;
 }
 
 *:focus {

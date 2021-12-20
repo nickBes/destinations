@@ -13,6 +13,10 @@ const headerKey = "Name"
 const filterKey = "Attraction_Type"
 const urlKey = "URL"
 
+// this is the number that is responsible for 
+// the best results in the matching score algorithm
+const mutualStringsAmountWeight = 1.45
+
 // creates an array of css bg-color attribute that is mapped to the variables
 // that exist in index.css
 
@@ -51,22 +55,20 @@ async function calculateMatchingScore (baseString, searchString) {
     const searchChars = searchString.split("")
     let mutualStringLengths = []
 
-    // there might be multiple non relevant mutual strings that are included
-    // in the lengths sum. so we count the amount of substrings to substract it later
-    let mutualStringAmount = 0
     // will create an array of all possible occurances for the sharedStringPromises (based on the base and earch strings),
     // to get the values in parallel
     searchChars.forEach((searchChar, searchCharIndex) => {
         baseChars.forEach((baseChar, baseCharIndex) => {
             if (baseChar == searchChar) {
                 mutualStringLengths.push(sharedStringLength(baseChars, searchChars, baseCharIndex, searchCharIndex))
-                mutualStringAmount++
             }
         })
     })
     mutualStringLengths = await Promise.all(mutualStringLengths)
     // sum the lengths if the array isn't empty
-    return mutualStringLengths.length == -mutualStringAmount ? 0 : mutualStringLengths.reduce((accumelated, currentValue) => accumelated + currentValue) - mutualStringAmount
+    // and remove the amount of mutual string to increase relevancy
+    // as there might be multiple non relevant mutual strings included
+    return mutualStringLengths.length == 0 ? 0 : mutualStringLengths.reduce((accumelated, currentValue) => accumelated + currentValue) - (mutualStringLengths.length * mutualStringsAmountWeight)
 }
 
 

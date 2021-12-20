@@ -3,6 +3,7 @@
 :root {
     --title-color: #151013;
     --subtitle-color: #333;
+    --default-border: 1px solid var(--subtitle-color);
 }
 
 * {
@@ -59,6 +60,8 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
+    border: var(--default-border);
 }
 
 #ftr p {
